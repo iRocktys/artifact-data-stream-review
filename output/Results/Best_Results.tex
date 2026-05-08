@@ -1,0 +1,50 @@
+\begin{table*}[ht]
+\centering
+\caption{Best results obtained for each scenario and poisoning level.}
+\label{tab:best_results_by_scenario}
+\scriptsize
+\setlength{\tabcolsep}{2.8pt}
+\renewcommand{\arraystretch}{1.05}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llccccccccc}
+\hline
+\textbf{Scenario} & \textbf{Poisoning (\%)} & \textbf{Best Model} & \textbf{Features} & \textbf{F1-Score} & \textbf{Precision} & \textbf{Recall} & \textbf{FN} & \textbf{FP} & \textbf{Threshold} & \textbf{Decision} \\ \hline
+Consistency\_25 & 0.48 & ARF & Best & 94.31 $\pm$ 0.55 & 99.39 $\pm$ 0.75 & 89.72 $\pm$ 0.68 & 8 $\pm$ 1 & 1 $\pm$ 1 & - & - \\
+ & 0.48 & AIF & Best & 91.84 $\pm$ 1.40 & 98.45 $\pm$ 1.66 & 86.11 $\pm$ 2.32 & 10 $\pm$ 2 & 1 $\pm$ 2 & optimized fixed & moving average w5 \\
+\hline
+Consistency\_200 & 3.34 & HAT & Best & 98.19 $\pm$ 0.00 & 99.39 $\pm$ 0.00 & 97.02 $\pm$ 0.00 & 15 $\pm$ 0 & 3 $\pm$ 0 & - & - \\
+ & 3.34 & AIF & Best & 92.22 $\pm$ 0.47 & 94.26 $\pm$ 1.14 & 90.28 $\pm$ 0.18 & 49 $\pm$ 1 & 28 $\pm$ 6 & z-score & persistence 2 of 3 \\
+\hline
+Consistency\_1000 & 16.08 & LB & Full & 98.82 $\pm$ 0.14 & 98.86 $\pm$ 0.17 & 98.79 $\pm$ 0.17 & 31 $\pm$ 5 & 29 $\pm$ 5 & - & - \\
+ & 16.08 & AIF & Best & 93.56 $\pm$ 0.20 & 94.27 $\pm$ 0.63 & 92.88 $\pm$ 0.86 & 178 $\pm$ 22 & 141 $\pm$ 18 & z-score & moving average w3 \\
+\hline
+Generalization\_25 & 0.49 & LB & Best & 93.89 $\pm$ 0.53 & 97.65 $\pm$ 1.14 & 90.41 $\pm$ 0.00 & 7 $\pm$ 0 & 2 $\pm$ 1 & - & - \\
+ & 0.49 & AIF & Best & 91.53 $\pm$ 0.53 & 96.10 $\pm$ 1.12 & 87.40 $\pm$ 1.03 & 10 $\pm$ 1 & 3 $\pm$ 1 & z-score & moving average w5 \\
+\hline
+Generalization\_200 & 3.81 & HAT & Best & 98.68 $\pm$ 0.00 & 99.29 $\pm$ 0.00 & 98.08 $\pm$ 0.00 & 11 $\pm$ 0 & 4 $\pm$ 0 & - & - \\
+ & 3.81 & AIF & Best & 96.44 $\pm$ 0.18 & 95.94 $\pm$ 0.93 & 96.96 $\pm$ 0.99 & 18 $\pm$ 6 & 24 $\pm$ 6 & z-score & moving average w5 \\
+\hline
+Generalization\_1000 & 16.65 & LB & Full & 99.02 $\pm$ 0.05 & 99.16 $\pm$ 0.11 & 98.88 $\pm$ 0.05 & 29 $\pm$ 2 & 22 $\pm$ 3 & - & - \\
+ & 16.65 & AIF & Best & 94.65 $\pm$ 0.14 & 96.17 $\pm$ 0.13 & 93.18 $\pm$ 0.22 & 176 $\pm$ 6 & 96 $\pm$ 4 & z-score & persistence 3 of 5 \\
+\hline
+Adaptation\_25 & 0.47 & HAT & Best & 89.06 $\pm$ 0.00 & 100.00 $\pm$ 0.00 & 80.28 $\pm$ 0.00 & 14 $\pm$ 0 & 0 $\pm$ 0 & - & - \\
+ & 0.47 & AIF & Best & 75.00 $\pm$ 0.27 & 95.66 $\pm$ 1.30 & 61.69 $\pm$ 0.56 & 28 $\pm$ 1 & 2 $\pm$ 1 & optimized fixed & moving average w5 \\
+\hline
+Adaptation\_200 & 3.79 & HAT & Best & 98.04 $\pm$ 0.00 & 99.64 $\pm$ 0.00 & 96.49 $\pm$ 0.00 & 20 $\pm$ 0 & 2 $\pm$ 0 & - & - \\
+ & 3.79 & HST & Best & 88.49 $\pm$ 5.74 & 89.03 $\pm$ 5.53 & 88.56 $\pm$ 8.91 & 66 $\pm$ 51 & 65 $\pm$ 38 & optimized fixed & moving average w5 \\
+\hline
+Adaptation\_1000 & 16.63 & ARF & Best & 98.73 $\pm$ 0.03 & 98.81 $\pm$ 0.06 & 98.64 $\pm$ 0.07 & 35 $\pm$ 2 & 31 $\pm$ 2 & - & - \\
+ & 16.63 & AIF & Best & 77.62 $\pm$ 0.79 & 90.03 $\pm$ 2.23 & 68.26 $\pm$ 1.41 & 815 $\pm$ 37 & 196 $\pm$ 52 & optimized fixed & persistence 3 of 5 \\
+\hline
+Recurrence\_25 & 0.47 & ARF & Full & 89.43 $\pm$ 0.54 & 96.39 $\pm$ 1.19 & 83.43 $\pm$ 0.70 & 12 $\pm$ 1 & 3 $\pm$ 1 & - & - \\
+ & 0.47 & HST & Best & 71.07 $\pm$ 4.37 & 75.89 $\pm$ 4.92 & 67.71 $\pm$ 8.31 & 23 $\pm$ 6 & 16 $\pm$ 6 & z-score & moving average w5 \\
+\hline
+Recurrence\_200 & 3.83 & ARF & Best & 97.29 $\pm$ 0.10 & 98.40 $\pm$ 0.25 & 96.21 $\pm$ 0.07 & 22 $\pm$ 1 & 9 $\pm$ 2 & - & - \\
+ & 3.83 & HST & Best & 85.10 $\pm$ 5.24 & 79.79 $\pm$ 10.24 & 92.70 $\pm$ 5.69 & 42 $\pm$ 33 & 151 $\pm$ 105 & optimized fixed & moving average w3 \\
+\hline
+Recurrence\_1000 & 17.13 & HAT & Best & 98.95 $\pm$ 0.00 & 99.61 $\pm$ 0.00 & 98.29 $\pm$ 0.00 & 45 $\pm$ 0 & 10 $\pm$ 0 & - & - \\
+ & 17.13 & AIF & Best & 80.51 $\pm$ 0.36 & 94.43 $\pm$ 0.79 & 70.17 $\pm$ 0.39 & 785 $\pm$ 11 & 109 $\pm$ 17 & optimized fixed & persistence 3 of 5 \\
+\hline
+\end{tabular}%
+}
+\end{table*}
