@@ -1,61 +1,55 @@
-# Anonymous Artifact: Intrusion Detection in Data Streams
+# Adaptive Cybersecurity: Benchmarking Anomaly Detection and Classification in Dynamic Data Streams
 
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/)
 [![CapyMOA](https://img.shields.io/badge/Framework-CapyMOA-orange)](https://capymoa.org/)
 [![Optuna](https://img.shields.io/badge/Optimization-Optuna-green)](https://optuna.org/)
 
-This repository contains the source code, generated datasets, experimental outputs, and execution notebooks used to evaluate intrusion detection models in data stream scenarios.
+This repository contains the anonymous artifact associated with the submitted paper **"Adaptive Cybersecurity: Benchmarking Anomaly Detection and Classification in Dynamic Data Streams"**.
+
+It includes the source code, processed CSV scenarios, experimental outputs, and execution notebooks used in the evaluation of anomaly detection and supervised classification models under dynamic data stream scenarios.
 
 The repository was prepared for a double-blind review process. Author names, institutional affiliations, personal identifiers, acknowledgments, and repository history were omitted to preserve anonymity during the review stage.
 
 ## Overview
 
-The project evaluates machine learning models for intrusion detection in continuous data streams. The experimental protocol considers two predictive approaches: supervised stream classifiers and anomaly detection methods.
+The project evaluates machine learning models for intrusion detection in continuous data streams. The experimental protocol considers both supervised stream classifiers and anomaly detection methods, analyzing their behavior under different attack scenarios and poisoning levels.
 
 The implementation includes:
 
 1. Supervised stream classifiers evaluated in a prequential setting;
 2. Anomaly detection methods that produce continuous anomaly scores;
 3. Thresholding and decision strategies for converting anomaly scores into binary predictions;
-4. Warm-up handling before computing final global metrics;
+4. A warm-up protocol before computing final global metrics;
 5. Optimization routines based on Optuna;
-6. Experimental CSV outputs and graphical outputs used in the analysis.
+6. Processed CSV scenarios and experimental plots used in the analysis.
 
 ## Repository Structure
 
 ```text
 .
 ├── data/
-│   └── ...
-│
+│   └── processed CSV scenarios used in the experiments
 ├── output/
-│   └── ...
-│
+│   └── experimental outputs, generated tables, plots, and PDF files
 ├── src/
 │   ├── Anomaly/
 │   │   ├── Models.py
 │   │   ├── Optimizer.py
 │   │   └── Pipeline.py
-│   │
 │   ├── Classification/
 │   │   ├── Models.py
 │   │   ├── Optimizer.py
 │   │   └── Pipeline.py
-│   │
 │   ├── Data/
 │   │   ├── Handler.py
 │   │   ├── Processor.py
 │   │   └── ScenarioGenerator.py
-│   │
 │   └── Results/
 │       ├── BestResultsTable.py
 │       ├── Metrics.py
 │       ├── Plots.py
 │       ├── PlotsBestModels.py
 │       └── TableResults.py
-│
-├── .gitattributes
-├── .gitignore
 ├── AnomalyDetection.ipynb
 ├── Classification.ipynb
 ├── Database.ipynb
@@ -64,49 +58,13 @@ The implementation includes:
 └── README.md
 ```
 
-## Source Code Modules
-
-### `src/Anomaly/`
-
-This module contains the anomaly detection pipeline.
-
-- `Models.py`: definition and configuration of anomaly detection models;
-- `Optimizer.py`: hyperparameter and decision-strategy optimization routines;
-- `Pipeline.py`: execution flow for anomaly detection experiments.
-
-### `src/Classification/`
-
-This module contains the supervised stream classification pipeline.
-
-- `Models.py`: definition and configuration of supervised stream classifiers;
-- `Optimizer.py`: hyperparameter optimization routines;
-- `Pipeline.py`: execution flow for prequential classification experiments.
-
-### `src/Data/`
-
-This module contains routines for dataset loading, preprocessing, and scenario generation.
-
-- `Handler.py`: data loading and handling utilities;
-- `Processor.py`: preprocessing routines used before stream construction;
-- `ScenarioGenerator.py`: generation of experimental scenarios used in the evaluation.
-
-### `src/Results/`
-
-This module contains routines for metric computation, result organization, and plotting.
-
-- `BestResultsTable.py`: generation of tables with the best experimental configurations;
-- `Metrics.py`: computation of global and stream-based metrics;
-- `Plots.py`: general plotting routines;
-- `PlotsBestModels.py`: plotting routines for selected best-performing models;
-- `TableResults.py`: organization and export of result tables.
+Some file and directory names may use UTF-8 characters. The repository structure should be preserved when running the notebooks, since several paths are referenced directly by the experimental pipeline.
 
 ## Evaluated Models
 
 ### Anomaly Detection
 
-The anomaly detection module includes methods that estimate the degree of deviation of each instance from the behavior learned from the stream.
-
-Evaluated methods include:
+Evaluated methods:
 
 - Autoencoder;
 - Adaptive Isolation Forest;
@@ -114,9 +72,7 @@ Evaluated methods include:
 
 ### Supervised Classification
 
-The classification module includes supervised algorithms updated incrementally during stream processing.
-
-Evaluated methods include:
+Evaluated methods:
 
 - Leveraging Bagging;
 - Hoeffding Adaptive Tree;
@@ -125,19 +81,17 @@ Evaluated methods include:
 
 ## Experimental Protocol
 
-The experiments are executed in a data stream setting. Each instance is processed sequentially according to the evaluation strategy adopted for each predictive approach.
+The experiments are executed in a data stream setting. Each instance is processed sequentially, and the models are evaluated according to the corresponding learning strategy.
 
 For supervised classifiers, the experiments follow a prequential evaluation procedure, in which each instance is first tested and then used to update the model.
 
-For anomaly detectors, models produce anomaly scores that are converted into predictions using threshold-based decision strategies.
+For anomaly detectors, models produce anomaly scores that are later converted into predictions using threshold-based decision strategies.
 
 ### Warm-up
 
 All models use an initial warm-up period of **2,000 samples**. These samples are used only for model initialization and adaptation. Final global metrics reported at the end of the stream do not include the warm-up samples.
 
 ## Metrics
-
-The framework computes traditional classification metrics and stream-oriented outputs used in the experimental analysis.
 
 The implemented metrics include:
 
@@ -150,23 +104,44 @@ The implemented metrics include:
 - False Positives;
 - False Negatives.
 
-The project also includes graphical analyses associated with attack regions in the stream, allowing the inspection of model behavior during and after attack intervals.
+The project also includes behavioral analyses associated with attack regions in the stream, allowing the evaluation of model behavior during and after attack intervals.
 
-## Data and Outputs
+## Dataset Availability
 
-The `data/` directory contains the generated CSV scenarios used in the experiments. These files are provided to support reproducibility of the submitted work.
+The original CICDDoS2019 dataset is not included in this repository due to its size and external distribution requirements.
 
-The `output/` directory contains experimental outputs used in the analysis, such as generated tables, intermediate CSV files, and plots.
+However, the processed CSV scenarios used in the experiments are provided in the `data/` directory. These files correspond to the generated data stream scenarios evaluated in the submitted paper and can be used directly to reproduce the anomaly detection and classification experiments.
 
-Raw traffic captures and original external datasets are not included. The CSV files included in this repository correspond to processed scenarios used by the experimental pipeline.
+The `Database.ipynb` notebook documents the preprocessing and scenario generation procedure from the original CICDDoS2019 files. Since the raw CICDDoS2019 dataset is not included, this notebook is provided for methodological transparency and will only run if the original dataset is manually downloaded and placed in the expected local directory structure.
 
-If Git LFS is enabled for CSV files or images, make sure these files were correctly downloaded before running the notebooks:
+For artifact review, the main reproducibility path starts from the processed CSV files already available in `data/`.
+
+### Optional raw dataset path
+
+To regenerate the processed CSV scenarios from the original CICDDoS2019 dataset, place the raw files under:
+
+```text
+datasets/
+└── CICDDoS2019/
+    └── 01-12/
+        └── <raw CICDDoS2019 files>
+```
+
+Alternatively, if the raw dataset is stored outside this repository, set the `CICDDOS2019_RAW_DIR` environment variable before running `Database.ipynb`.
+
+Linux/macOS:
 
 ```bash
-git lfs install
-git lfs pull
-git lfs ls-files
+export CICDDOS2019_RAW_DIR="/path/to/CICDDoS2019/01-12"
 ```
+
+Windows PowerShell:
+
+```powershell
+$env:CICDDOS2019_RAW_DIR="C:\path\to\CICDDoS2019\01-12"
+```
+
+The raw CICDDoS2019 files are not required to run the main experiments, because the processed CSV scenarios are already available in `data/`.
 
 ## Installation
 
@@ -174,9 +149,9 @@ git lfs ls-files
 
 - Python 3.9 or higher;
 - Java JRE/JDK, required by MOA/CapyMOA;
-- Git LFS, required if the repository stores generated CSV files and graphical outputs through LFS.
+- Git LFS, required if downloading the repository with processed CSV files, plots, and PDF outputs.
 
-### Clone the Repository
+### Clone the repository
 
 During the review process, this repository should be accessed through the anonymized link provided in the submitted paper.
 
@@ -185,7 +160,14 @@ git clone <anonymous-repository-url>
 cd <repository-folder>
 ```
 
-### Create a Virtual Environment
+If Git LFS files are not downloaded automatically, run:
+
+```bash
+git lfs install
+git lfs pull
+```
+
+### Create a virtual environment
 
 Linux/macOS:
 
@@ -201,55 +183,40 @@ python -m venv .venv
 .venv\Scripts\activate
 ```
 
-### Install Dependencies
+### Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## How to Run
+## Recommended Execution Path
 
-The experiments can be executed through the notebooks available in the repository root.
+For reviewers, the recommended execution path is:
 
-### Anomaly Detection
+1. Use the processed CSV scenarios available in `data/`;
+2. Run `AnomalyDetection.ipynb` to evaluate anomaly detection models;
+3. Run `Classification.ipynb` to evaluate supervised classifiers;
+4. Run `Results.ipynb` to reproduce tables and plots.
 
-Use:
+The `Database.ipynb` notebook is optional for artifact review. It is only required if the reviewer wants to regenerate the CSV scenarios from the original CICDDoS2019 dataset.
 
-```text
-AnomalyDetection.ipynb
-```
+## Notebook Description
 
-This notebook loads the dataset, builds the data stream, applies preprocessing, executes anomaly detection models, performs optimization, and generates the corresponding metrics and plots.
+### `AnomalyDetection.ipynb`
 
-### Supervised Classification
+Loads the processed CSV scenarios, builds the data stream, applies preprocessing, executes anomaly detection models, performs optimization, and generates the corresponding metrics and plots.
 
-Use:
+### `Classification.ipynb`
 
-```text
-Classification.ipynb
-```
+Loads the processed CSV scenarios and evaluates supervised classifiers in a prequential setting.
 
-This notebook evaluates supervised classifiers in a prequential setting.
+### `Database.ipynb`
 
-### Dataset Processing
+Documents the preprocessing and scenario generation procedure from the original CICDDoS2019 dataset. This notebook is not part of the default execution path for reviewers because the raw CICDDoS2019 files are not included in this repository.
 
-Use:
+### `Results.ipynb`
 
-```text
-Database.ipynb
-```
-
-This notebook contains routines for dataset preparation and scenario generation.
-
-### Results and Plots
-
-Use:
-
-```text
-Results.ipynb
-```
-
-This notebook contains routines for reading experimental outputs, organizing metrics, and generating plots used in the experimental analysis.
+Reads experimental outputs, organizes metrics, and generates plots used in the experimental analysis.
 
 ## Example: Anomaly Detection Optimization
 
@@ -271,20 +238,54 @@ best_model = optimizer.optimize(
 )
 ```
 
+## Outputs
+
+The repository includes experimental outputs used in the analysis, such as:
+
+- Processed CSV files;
+- Prequential metric outputs;
+- Optimization results;
+- Graphical outputs;
+- PDF files;
+- Model behavior plots over attack regions.
+
+These outputs are included to allow reviewers to inspect the experimental artifacts without necessarily rerunning all experiments from scratch.
+
+## Git LFS Notes
+
+This repository contains processed CSV scenarios, plots, and PDF outputs. Some of these files are tracked using Git LFS due to their size.
+
+After cloning the repository, install Git LFS and download the tracked files:
+
+```bash
+git lfs install
+git lfs pull
+```
+
+To verify that the LFS files were correctly tracked, run:
+
+```bash
+git lfs ls-files
+```
+
+If CSV, image, or PDF files appear as small pointer files instead of full files, run:
+
+```bash
+git lfs pull
+```
+
 ## Reproducibility Notes
 
 To reproduce the experiments:
 
 1. Install the dependencies listed in `requirements.txt`;
-2. Ensure that Git LFS files were downloaded, when applicable;
-3. Run `Database.ipynb` if scenario generation is required;
-4. Execute `AnomalyDetection.ipynb` and `Classification.ipynb`;
+2. Ensure that Git LFS files were downloaded;
+3. Use the processed CSV scenarios already available in `data/`;
+4. Execute the anomaly detection and classification notebooks;
 5. Generate the final plots and tables using `Results.ipynb`.
 
 Due to optimization procedures and possible implementation-level randomness, minor numerical variations may occur across executions. When applicable, random seeds should be fixed in the corresponding notebook or script before execution.
 
 ## Anonymity Notice
 
-This repository was prepared for double-blind review. Author names, affiliations, acknowledgments, repository ownership information, personal identifiers, and historical commit metadata were removed or omitted.
-
-The non-anonymized repository information should be restored only in the final version, if the paper is accepted.
+This repository was prepared for double-blind review. Author names, affiliations, acknowledgments, repository ownership information, and personal identifiers were removed or omitted.
