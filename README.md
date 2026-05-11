@@ -1,8 +1,10 @@
-# Adaptive Cybersecurity: Benchmarking Anomaly Detection and Classification in Dynamic Data Streams
+# Benchmarking Anomaly Detection Algorithms and Supervised Classifiers for Data Streams in the Presence of Denial-of-Service Attack Variants
 
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/)
 [![CapyMOA](https://img.shields.io/badge/Framework-CapyMOA-orange)](https://capymoa.org/)
 [![Optuna](https://img.shields.io/badge/Optimization-Optuna-green)](https://optuna.org/)
+[![Dataset](https://img.shields.io/badge/Dataset-CICDDoS2019-purple)](https://www.unb.ca/cic/datasets/ddos-2019.html)
+[![Git LFS](https://img.shields.io/badge/Large_Files-Git_LFS-informational)](https://git-lfs.com/)
 
 This repository contains the anonymous artifact associated with the submitted paper **"Adaptive Cybersecurity: Benchmarking Anomaly Detection and Classification in Dynamic Data Streams"**.
 
@@ -12,16 +14,20 @@ The repository was prepared for a double-blind review process. Author names, ins
 
 ## Overview
 
-The project evaluates machine learning models for intrusion detection in continuous data streams. The experimental protocol considers both supervised stream classifiers and anomaly detection methods, analyzing their behavior under different attack scenarios and poisoning levels.
+This project provides the anonymous artifact associated with a benchmark of supervised classifiers and anomaly detection algorithms for DoS/DDoS attack detection in data streams.
+
+The study focuses on dynamic scenarios built from the CICDDoS2019 dataset, with emphasis on how different DoS/DDoS attack variants affect stream learning models. The experiments are centered on denial-of-service traffic patterns, including DNS-, LDAP-, and SYN-based attack variants.
+
+The benchmark compares supervised classifiers and anomaly detectors under four experimental scenarios: Consistency, Generalization, Adaptation, and Recurrence. These scenarios were designed from an attack similarity analysis to evaluate how models behave when exposed over time to recurring, similar, distinct, and alternating attack patterns.
 
 The implementation includes:
 
-1. Supervised stream classifiers evaluated in a prequential setting;
-2. Anomaly detection methods that produce continuous anomaly scores;
-3. Thresholding and decision strategies for converting anomaly scores into binary predictions;
-4. A warm-up protocol before computing final global metrics;
-5. Optimization routines based on Optuna;
-6. Processed CSV scenarios and experimental plots used in the analysis.
+1. Supervised stream classifiers evaluated under the prequential Test-then-Train protocol;
+2. Anomaly detection algorithms that continuously produce anomaly scores;
+3. Feature selection based on attack behavior analysis;
+4. Threshold calibration and window-based decision strategies for anomaly detection;
+5. Hyperparameter optimization routines based on Optuna;
+6. Processed CSV scenarios and experimental outputs used to reproduce the benchmark results.
 
 ## Repository Structure
 
