@@ -1,4 +1,4 @@
-# Benchmarking Anomaly Detection Algorithms and Supervised Classifiers for Data Streams in the Presence of Denial-of-Service Attack Variants
+# Denial-of-Service Attack Variants: Benchmarking Streaming Anomaly Detection and Classification Methods
 
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/)
 [![CapyMOA](https://img.shields.io/badge/Framework-CapyMOA-orange)](https://capymoa.org/)
@@ -6,30 +6,49 @@
 [![Dataset](https://img.shields.io/badge/Dataset-CICDDoS2019-purple)](https://www.unb.ca/cic/datasets/ddos-2019.html)
 [![Git LFS](https://img.shields.io/badge/Large_Files-Git_LFS-informational)](https://git-lfs.com/)
 
-This repository contains the anonymous artifact associated with the submitted paper **"Adaptive Cybersecurity: Benchmarking Anomaly Detection and Classification in Dynamic Data Streams"**.
+This repository contains the anonymous artifact associated with the submitted paper **"Denial-of-Service Attack Variants: Benchmarking Streaming Anomaly Detection and Classification Methods"**.
 
-It includes the source code, processed CSV scenarios, experimental outputs, and execution notebooks used in the evaluation of anomaly detection and supervised classification models under dynamic data stream scenarios.
+The paper presents a benchmark of supervised classifiers and anomaly detection algorithms for **DoS/DDoS attack detection in data streams**. The experimental design uses dynamic scenarios derived from the CICDDoS2019 dataset to evaluate how different DoS/DDoS attack variants affect stream learning models over time. The benchmark compares supervised classifiers and anomaly detectors under four scenarios: **Consistency**, **Generalization**, **Adaptation**, and **Recurrence**.
+
+This artifact includes the source code, processed CSV scenarios, experimental outputs, and execution notebooks required to inspect and reproduce the main results reported in the paper. The raw CICDDoS2019 files are not redistributed due to their size and external distribution conditions, but the processed CSV scenarios used in the experiments are included in the `data/` directory.
 
 The repository was prepared for a double-blind review process. Author names, institutional affiliations, personal identifiers, acknowledgments, and repository history were omitted to preserve anonymity during the review stage.
 
-## Overview
+---
 
-This project provides the anonymous artifact associated with a benchmark of supervised classifiers and anomaly detection algorithms for DoS/DDoS attack detection in data streams.
+# README.md Structure
 
-The study focuses on dynamic scenarios built from the CICDDoS2019 dataset, with emphasis on how different DoS/DDoS attack variants affect stream learning models. The experiments are centered on denial-of-service traffic patterns, including DNS-, LDAP-, and SYN-based attack variants.
+This README is organized as follows:
 
-The benchmark compares supervised classifiers and anomaly detectors under four experimental scenarios: Consistency, Generalization, Adaptation, and Recurrence. These scenarios were designed from an attack similarity analysis to evaluate how models behave when exposed over time to recurring, similar, distinct, and alternating attack patterns.
+1. **Project Title and Summary**: presents the artifact and its relationship to the submitted paper.
+2. **README.md Structure**: describes the organization of this document.
+3. **Considered Seals**: indicates the artifact evaluation seals requested by the authors.
+4. **Basic Information**: describes the artifact components and execution environment.
+5. **Dependencies**: lists software dependencies, benchmark data, and external resources.
+6. **Security Concerns**: describes potential risks and safe execution recommendations.
+7. **Installation**: explains how to clone, install, and prepare the artifact.
+8. **Minimum Test**: provides a lightweight execution path to verify installation.
+9. **Experiments**: describes how to reproduce the main claims of the paper.
+10. **LICENSE**: presents the licensing status of the anonymous review artifact.
 
-The implementation includes:
+---
 
-1. Supervised stream classifiers evaluated under the prequential Test-then-Train protocol;
-2. Anomaly detection algorithms that continuously produce anomaly scores;
-3. Feature selection based on attack behavior analysis;
-4. Threshold calibration and window-based decision strategies for anomaly detection;
-5. Hyperparameter optimization routines based on Optuna;
-6. Processed CSV scenarios and experimental outputs used to reproduce the benchmark results.
+# Considered Seals
 
-## Repository Structure
+The considered artifact evaluation seals are:
+
+- **Available**: the artifact is available through an anonymized repository for peer review.
+- **Functional**: the artifact includes code, processed CSV scenarios, notebooks, dependencies, and instructions to execute the main evaluation workflow.
+
+The artifact also provides experimental outputs, plots, and tables to support inspection of the reported results. Full regeneration of the processed CSV scenarios from the raw CICDDoS2019 dataset is optional and depends on manually obtaining the original dataset.
+
+---
+
+# Basic Information
+
+## Artifact Components
+
+The repository is organized as follows:
 
 ```text
 .
@@ -66,63 +85,65 @@ The implementation includes:
 
 Some file and directory names may use UTF-8 characters. The repository structure should be preserved when running the notebooks, since several paths are referenced directly by the experimental pipeline.
 
-## Evaluated Models
+## Execution Environment
 
-### Anomaly Detection
+The artifact was designed to run in a local Python environment using Jupyter notebooks.
 
-Evaluated methods:
+Recommended software environment:
 
-- Autoencoder;
-- Adaptive Isolation Forest;
-- Half-Space Trees.
+- Operating system: Linux, macOS, or Windows.
+- Python: 3.9 or higher.
+- Java: JRE/JDK installed and available in the system path, required by MOA/CapyMOA.
+- Git LFS: required to download large CSV files, plots, and PDF outputs.
+- Jupyter Notebook or JupyterLab.
+- Internet access during installation to download Python packages.
 
-### Supervised Classification
+The artifact was successfully tested with Python 3.12 in the authors' local environment. However, Python 3.9 or higher is expected to be supported, depending on the compatibility of the installed dependencies.
 
-Evaluated methods:
+## Hardware Requirements
 
-- Leveraging Bagging;
-- Hoeffding Adaptive Tree;
-- Adaptive Random Forest;
-- Hoeffding Tree.
+A standard desktop or laptop machine is sufficient for inspecting the artifact and running the minimum test.
 
-## Experimental Protocol
+Recommended resources:
 
-The experiments are executed in a data stream setting. Each instance is processed sequentially, and the models are evaluated according to the corresponding learning strategy.
+- CPU: 4 cores or higher.
+- RAM: at least 8 GB recommended.
+- Disk: at least 2 GB free after cloning the repository and downloading Git LFS files.
+- GPU: not required.
 
-For supervised classifiers, the experiments follow a prequential evaluation procedure, in which each instance is first tested and then used to update the model.
+Running all optimization experiments may require substantially more time than the minimum test, especially because Optuna optimization and repeated executions are used in the full experimental workflow.
 
-For anomaly detectors, models produce anomaly scores that are later converted into predictions using threshold-based decision strategies.
+---
 
-### Warm-up
+# Dependencies
 
-All models use an initial warm-up period of **2,000 samples**. These samples are used only for model initialization and adaptation. Final global metrics reported at the end of the stream do not include the warm-up samples.
+## Python Dependencies
 
-## Metrics
+Install the Python dependencies with:
 
-The implemented metrics include:
+```bash
+pip install -r requirements.txt
+```
 
-- F1-score;
-- Precision;
-- Recall;
-- MCC;
-- FPR;
-- TPR;
-- False Positives;
-- False Negatives.
+The main libraries used by the artifact include:
 
-The project also includes behavioral analyses associated with attack regions in the stream, allowing the evaluation of model behavior during and after attack intervals.
+- CapyMOA: stream learning algorithms and data stream evaluation.
+- Optuna: hyperparameter optimization.
+- scikit-learn: preprocessing, metrics, and auxiliary machine learning routines.
+- pandas: CSV reading and data manipulation.
+- numpy: numerical operations.
+- matplotlib: plots and visual outputs.
+- Jupyter: notebook execution.
 
-## Dataset Availability
+The exact dependency list should be obtained from the `requirements.txt` file included in the repository.
 
-The original CICDDoS2019 dataset is not included in this repository due to its size and external distribution requirements.
+## External Benchmark Dataset
 
-However, the processed CSV scenarios used in the experiments are provided in the `data/` directory. These files correspond to the generated data stream scenarios evaluated in the submitted paper and can be used directly to reproduce the anomaly detection and classification experiments.
+The original **CICDDoS2019** dataset is not included in this repository due to its size and external distribution requirements.
 
-The `Database.ipynb` notebook documents the preprocessing and scenario generation procedure from the original CICDDoS2019 files. Since the raw CICDDoS2019 dataset is not included, this notebook is provided for methodological transparency and will only run if the original dataset is manually downloaded and placed in the expected local directory structure.
+The processed CSV scenarios used in the experiments are included in the `data/` directory. Therefore, the main experiments can be reproduced without downloading the raw CICDDoS2019 files.
 
-For artifact review, the main reproducibility path starts from the processed CSV files already available in `data/`.
-
-### Optional raw dataset path
+The `Database.ipynb` notebook documents the preprocessing and scenario generation procedure from the original CICDDoS2019 files. This notebook is optional for artifact review and only runs if the raw dataset is manually downloaded and placed in the expected structure.
 
 To regenerate the processed CSV scenarios from the original CICDDoS2019 dataset, place the raw files under:
 
@@ -147,117 +168,7 @@ Windows PowerShell:
 $env:CICDDOS2019_RAW_DIR="C:\path\to\CICDDoS2019\01-12"
 ```
 
-The raw CICDDoS2019 files are not required to run the main experiments, because the processed CSV scenarios are already available in `data/`.
-
-## Installation
-
-### Requirements
-
-- Python 3.9 or higher;
-- Java JRE/JDK, required by MOA/CapyMOA;
-- Git LFS, required if downloading the repository with processed CSV files, plots, and PDF outputs.
-
-### Clone the repository
-
-During the review process, this repository should be accessed through the anonymized link provided in the submitted paper.
-
-```bash
-git clone <anonymous-repository-url>
-cd <repository-folder>
-```
-
-If Git LFS files are not downloaded automatically, run:
-
-```bash
-git lfs install
-git lfs pull
-```
-
-### Create a virtual environment
-
-Linux/macOS:
-
-```bash
-python -m venv .venv
-source .venv/bin/activate
-```
-
-Windows:
-
-```bash
-python -m venv .venv
-.venv\Scripts\activate
-```
-
-### Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-## Recommended Execution Path
-
-For reviewers, the recommended execution path is:
-
-1. Use the processed CSV scenarios available in `data/`;
-2. Run `AnomalyDetection.ipynb` to evaluate anomaly detection models;
-3. Run `Classification.ipynb` to evaluate supervised classifiers;
-4. Run `Results.ipynb` to reproduce tables and plots.
-
-The `Database.ipynb` notebook is optional for artifact review. It is only required if the reviewer wants to regenerate the CSV scenarios from the original CICDDoS2019 dataset.
-
-## Notebook Description
-
-### `AnomalyDetection.ipynb`
-
-Loads the processed CSV scenarios, builds the data stream, applies preprocessing, executes anomaly detection models, performs optimization, and generates the corresponding metrics and plots.
-
-### `Classification.ipynb`
-
-Loads the processed CSV scenarios and evaluates supervised classifiers in a prequential setting.
-
-### `Database.ipynb`
-
-Documents the preprocessing and scenario generation procedure from the original CICDDoS2019 dataset. This notebook is not part of the default execution path for reviewers because the raw CICDDoS2019 files are not included in this repository.
-
-### `Results.ipynb`
-
-Reads experimental outputs, organizes metrics, and generates plots used in the experimental analysis.
-
-## Example: Anomaly Detection Optimization
-
-```python
-from src.Anomaly.Optimizer import AnomalyOptunaOptimizer
-
-optimizer = AnomalyOptunaOptimizer(
-    stream=stream,
-    n_trials=10,
-    discretization_threshold="params",
-    target_class="macro",
-    target_class_pass=0,
-    target_names=targets
-)
-
-best_model = optimizer.optimize(
-    model_name="HST",
-    warmup_instances=2000
-)
-```
-
-## Outputs
-
-The repository includes experimental outputs used in the analysis, such as:
-
-- Processed CSV files;
-- Prequential metric outputs;
-- Optimization results;
-- Graphical outputs;
-- PDF files;
-- Model behavior plots over attack regions.
-
-These outputs are included to allow reviewers to inspect the experimental artifacts without necessarily rerunning all experiments from scratch.
-
-## Git LFS Notes
+## Git LFS Dependencies
 
 This repository contains processed CSV scenarios, plots, and PDF outputs. Some of these files are tracked using Git LFS due to their size.
 
@@ -268,30 +179,334 @@ git lfs install
 git lfs pull
 ```
 
-To verify that the LFS files were correctly tracked, run:
+To verify that the LFS files were correctly downloaded, run:
 
 ```bash
 git lfs ls-files
 ```
 
-If CSV, image, or PDF files appear as small pointer files instead of full files, run:
+If CSV, image, or PDF files appear as small pointer files instead of complete files, run:
 
 ```bash
 git lfs pull
 ```
 
-## Reproducibility Notes
+---
 
-To reproduce the experiments:
+# Security Concerns
 
-1. Install the dependencies listed in `requirements.txt`;
-2. Ensure that Git LFS files were downloaded;
-3. Use the processed CSV scenarios already available in `data/`;
-4. Execute the anomaly detection and classification notebooks;
-5. Generate the final plots and tables using `Results.ipynb`.
+The artifact does not execute network attacks and does not generate malicious traffic. The experiments operate only on CSV files containing preprocessed flow records and produce metrics, tables, plots, and PDF outputs.
 
-Due to optimization procedures and possible implementation-level randomness, minor numerical variations may occur across executions. When applicable, random seeds should be fixed in the corresponding notebook or script before execution.
+Recommended safety practices for reviewers:
 
-## Anonymity Notice
+1. Run the artifact in a local virtual environment.
+2. Do not execute notebooks with administrative privileges.
+3. Do not download or execute unknown external files beyond the documented dependencies.
+4. Treat the raw CICDDoS2019 regeneration step as optional.
+5. Use the processed CSV files already available in `data/` for the main artifact evaluation.
 
-This repository was prepared for double-blind review. Author names, affiliations, acknowledgments, repository ownership information, and personal identifiers were removed or omitted.
+The artifact is intended only for offline experimental evaluation of DoS/DDoS detection models using existing data.
+
+---
+
+# Installation
+
+## 1. Clone the Repository
+
+During the review process, this repository should be accessed through the anonymized link provided in the submitted paper.
+
+```bash
+git clone <anonymous-repository-url>
+cd <repository-folder>
+```
+
+## 2. Download Git LFS Files
+
+```bash
+git lfs install
+git lfs pull
+```
+
+Check whether LFS files are available:
+
+```bash
+git lfs ls-files
+```
+
+## 3. Create a Virtual Environment
+
+Linux/macOS:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+```
+
+Windows PowerShell:
+
+```powershell
+python -m venv .venv
+.venv\Scripts\activate
+```
+
+## 4. Install Python Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+## 5. Check Java Availability
+
+CapyMOA/MOA requires Java. Verify that Java is available:
+
+```bash
+java -version
+```
+
+If Java is not available, install a JRE/JDK compatible with CapyMOA/MOA before running the notebooks.
+
+---
+
+# Minimum Test
+
+This section provides a lightweight test to verify whether the artifact environment is correctly installed.
+
+## Step 1: Start Jupyter
+
+```bash
+jupyter notebook
+```
+
+or:
+
+```bash
+jupyter lab
+```
+
+## Step 2: Open the Results Notebook
+
+Open:
+
+```text
+Results.ipynb
+```
+
+This notebook reads already generated experimental outputs and organizes the results into tables and plots. It is the recommended first test because it does not require regenerating the original CSV scenarios from the raw CICDDoS2019 dataset.
+
+## Step 3: Execute the Initial Cells
+
+Run the first cells that import dependencies and load result files from `output/`.
+
+Expected behavior:
+
+- Python imports should complete without errors.
+- Files from `output/` should be found.
+- Tables and/or plots should be generated from existing outputs.
+
+Expected resource usage:
+
+- RAM: approximately 1 GB to 4 GB, depending on the loaded outputs.
+- Disk: no significant additional disk usage.
+- Runtime: a few minutes for the initial cells.
+
+If this test succeeds, the installation and data access through Git LFS are likely correct.
+
+---
+
+# Experiments
+
+The full experimental workflow is organized around the processed CSV scenarios available in `data/`.
+
+Recommended execution order:
+
+1. `Results.ipynb`: inspect generated tables and plots from existing outputs.
+2. `AnomalyDetection.ipynb`: execute anomaly detection experiments.
+3. `Classification.ipynb`: execute supervised classification experiments.
+4. `Database.ipynb`: optional notebook for regenerating scenarios from the original CICDDoS2019 dataset.
+
+The raw CICDDoS2019 dataset is not required for reproducing the main results from the processed CSV files. It is only required if reviewers want to regenerate the processed scenarios from scratch.
+
+## Claim #1: Supervised classifiers achieve the highest overall performance in most scenarios
+
+The paper reports that supervised classifiers, especially ensemble-based methods such as Adaptive Random Forest and Hoeffding Adaptive Tree, achieved the highest overall F1-scores across several DoS/DDoS stream scenarios.
+
+### How to Reproduce
+
+1. Ensure that Git LFS files were downloaded:
+
+```bash
+git lfs pull
+```
+
+2. Open:
+
+```text
+Classification.ipynb
+```
+
+3. Execute the cells that load processed CSV scenarios from `data/`.
+
+4. Run the supervised classifier experiments for the four scenarios:
+
+- Consistency;
+- Generalization;
+- Adaptation;
+- Recurrence.
+
+5. Compare the generated metrics with the tables and outputs available in `output/`.
+
+No additional configuration file needs to be changed for this reproduction path. Parameters such as scenario name, poisoning level, model name, number of Optuna trials, and warm-up size can be adjusted directly in the corresponding notebook cells.
+
+### Expected Output
+
+The notebook should generate classification metrics such as:
+
+- F1-score;
+- Precision;
+- Recall;
+- False Positives;
+- False Negatives.
+
+Expected behavior:
+
+- Ensemble-based supervised classifiers should appear among the best-performing models in several scenario and poisoning-level combinations.
+- Results may show minor numerical differences due to stochastic components and optimization procedures.
+
+### Expected Resources
+
+- RAM: 4 GB to 8 GB recommended.
+- Disk: no major additional disk usage beyond outputs.
+- Runtime: depends on the number of scenarios and whether optimization is enabled; full execution may take several hours.
+
+## Claim #2: Anomaly detectors are competitive in specific settings but depend strongly on thresholding and decision strategies
+
+The paper reports that anomaly detectors such as Adaptive Isolation Forest and Half-Space Trees can achieve competitive results in specific scenarios, especially when combined with feature selection, threshold calibration, and window-based decision strategies.
+
+### How to Reproduce
+
+1. Ensure that Git LFS files were downloaded:
+
+```bash
+git lfs pull
+```
+
+2. Open:
+
+```text
+AnomalyDetection.ipynb
+```
+
+3. Execute the cells that load processed CSV scenarios from `data/`.
+
+4. Run the anomaly detection experiments using the available models and threshold strategies.
+
+5. Compare the generated metrics, plots, and optimization outputs with the files available in `output/`.
+
+No additional configuration file needs to be changed for this reproduction path. Parameters such as detector name, threshold strategy, window-based decision strategy, number of Optuna trials, and warm-up size can be adjusted directly in the corresponding notebook cells.
+
+### Expected Output
+
+The notebook should produce:
+
+- Anomaly scores;
+- Binary predictions after thresholding;
+- F1-score, Precision, Recall, FP, and FN;
+- Plots showing model behavior over the stream.
+
+Expected behavior:
+
+- Anomaly detectors should show stronger dependence on threshold calibration and decision strategies than supervised classifiers.
+- Window-based strategies such as moving average or temporal persistence may reduce unstable decisions caused by isolated anomaly score peaks.
+
+### Expected Resources
+
+- RAM: 4 GB to 8 GB recommended.
+- Disk: additional output files may be generated.
+- Runtime: may take several hours if all optimization procedures are enabled.
+
+## Claim #3: Attack similarity affects model behavior over time
+
+The paper reports that model behavior changes across the four scenarios: Consistency, Generalization, Adaptation, and Recurrence. Similar attack variants tend to be less challenging, while more distinct or alternating attack patterns may increase the occurrence of errors.
+
+### How to Reproduce
+
+1. Open:
+
+```text
+Results.ipynb
+```
+
+2. Load the existing outputs from the `output/` directory.
+
+3. Generate the tables and plots comparing the four scenarios.
+
+4. Inspect the plots of False Positives and False Negatives over the stream.
+
+No additional configuration file needs to be changed for this reproduction path. Existing outputs in `output/` are sufficient to inspect the claim.
+
+### Expected Output
+
+The notebook should reproduce plots and tables showing differences in model behavior across:
+
+- Consistency;
+- Generalization;
+- Adaptation;
+- Recurrence.
+
+Expected behavior:
+
+- More stable behavior is expected in scenarios with repeated or similar attacks.
+- More dynamic scenarios may show increased errors, especially for anomaly detectors.
+
+### Expected Resources
+
+- RAM: 1 GB to 4 GB.
+- Disk: no major additional disk usage.
+- Runtime: a few minutes to inspect existing outputs.
+
+## Optional Experiment: Regenerating Processed CSV Scenarios
+
+The `Database.ipynb` notebook can be used to regenerate the processed CSV scenarios from the raw CICDDoS2019 files.
+
+This step is optional because the raw CICDDoS2019 dataset is not included in this repository.
+
+### Required Setup
+
+Place the original raw dataset files under:
+
+```text
+datasets/
+└── CICDDoS2019/
+    └── 01-12/
+        └── <raw CICDDoS2019 files>
+```
+
+or set:
+
+```bash
+export CICDDOS2019_RAW_DIR="/path/to/CICDDoS2019/01-12"
+```
+
+Windows PowerShell:
+
+```powershell
+$env:CICDDOS2019_RAW_DIR="C:\path\to\CICDDoS2019\01-12"
+```
+
+### Expected Output
+
+The notebook should generate processed CSV scenarios in `data/`.
+
+### Expected Resources
+
+- RAM: 8 GB recommended.
+- Disk: depends on the size of the raw CICDDoS2019 files.
+- Runtime: depends on the storage device and dataset location.
+
+---
+
+# LICENSE
+
+No explicit open-source license is included in this anonymous review version of the artifact. The repository is provided for artifact evaluation and peer review purposes.
+
+The final public version may include a formal license after the review process, according to the authors' publication and distribution decisions.
