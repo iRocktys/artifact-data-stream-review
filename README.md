@@ -1,18 +1,14 @@
 # Denial-of-Service Attack Variants: Benchmarking Streaming Anomaly Detection and Classification Methods
 
-[![Python](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/)
-[![CapyMOA](https://img.shields.io/badge/Framework-CapyMOA-orange)](https://capymoa.org/)
-[![Optuna](https://img.shields.io/badge/Optimization-Optuna-green)](https://optuna.org/)
-[![Dataset](https://img.shields.io/badge/Dataset-CICDDoS2019-purple)](https://www.unb.ca/cic/datasets/ddos-2019.html)
-[![Git LFS](https://img.shields.io/badge/Large_Files-Git_LFS-informational)](https://git-lfs.com/)
+[![Python](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/) [![CapyMOA](https://img.shields.io/badge/Framework-CapyMOA-orange)](https://capymoa.org/) [![Optuna](https://img.shields.io/badge/Optimization-Optuna-green)](https://optuna.org/) [![Dataset](https://img.shields.io/badge/Dataset-CICDDoS2019-purple)](https://www.unb.ca/cic/datasets/ddos-2019.html) [![Git LFS](https://img.shields.io/badge/Large_Files-Git_LFS-informational)](https://git-lfs.com/)
 
-This repository contains the anonymous artifact associated with the submitted paper **"Denial-of-Service Attack Variants: Benchmarking Streaming Anomaly Detection and Classification Methods"**.
+This repository contains the public artifact associated with the paper **"Denial-of-Service Attack Variants: Benchmarking Streaming Anomaly Detection and Classification Methods"**, submitted to the **2026 Brazilian Symposium on Computing Systems Engineering (SBESC 2026)**.
 
 The paper presents a benchmark of supervised classifiers and anomaly detection algorithms for **DoS/DDoS attack detection in data streams**. The experimental design uses dynamic scenarios derived from the CICDDoS2019 dataset to evaluate how different DoS/DDoS attack variants affect stream learning models over time. The benchmark compares supervised classifiers and anomaly detectors under four scenarios: **Consistency**, **Generalization**, **Adaptation**, and **Recurrence**.
 
 This artifact includes the source code, processed CSV scenarios, experimental outputs, and execution notebooks required to inspect and reproduce the main results reported in the paper. The raw CICDDoS2019 files are not redistributed due to their size and external distribution conditions, but the processed CSV scenarios used in the experiments are included in the `data/` directory.
 
-The repository was prepared for a double-blind review process. Author names, institutional affiliations, personal identifiers, acknowledgments, and repository history were omitted to preserve anonymity during the review stage.
+The repository is not anonymized and retains its public GitHub ownership and development history, as permitted for the SBESC 2026 submission.
 
 ---
 
@@ -22,25 +18,22 @@ This README is organized as follows:
 
 1. **Project Title and Summary**: presents the artifact and its relationship to the submitted paper.
 2. **README.md Structure**: describes the organization of this document.
-3. **Considered Seals**: indicates the artifact evaluation seals requested by the authors.
+3. **Artifact Availability**: summarizes the public availability and reproducibility support provided by the artifact.
 4. **Basic Information**: describes the artifact components and execution environment.
 5. **Dependencies**: lists software dependencies, benchmark data, and external resources.
 6. **Security Concerns**: describes potential risks and safe execution recommendations.
 7. **Installation**: explains how to clone, install, and prepare the artifact.
 8. **Minimum Test**: provides a lightweight execution path to verify installation.
 9. **Experiments**: describes how to reproduce the main claims of the paper.
-10. **LICENSE**: presents the licensing status of the anonymous review artifact.
+10. **LICENSE**: presents the current licensing status of the repository.
 
 ---
 
-# Considered Seals
+# Artifact Availability
 
-The considered artifact evaluation seals are:
+The artifact is publicly available in the project repository and includes code, processed CSV scenarios, notebooks, dependencies, and instructions for executing the main evaluation workflow.
 
-- **Available**: the artifact is available through an anonymized repository for peer review.
-- **Functional**: the artifact includes code, processed CSV scenarios, notebooks, dependencies, and instructions to execute the main evaluation workflow.
-
-The artifact also provides experimental outputs, plots, and tables to support inspection of the reported results. Full regeneration of the processed CSV scenarios from the raw CICDDoS2019 dataset is optional and depends on manually obtaining the original dataset.
+Experimental outputs, plots, and tables are also provided to support inspection and reproduction of the reported results. Full regeneration of the processed CSV scenarios from the raw CICDDoS2019 dataset is optional and depends on manually obtaining the original dataset.
 
 ---
 
@@ -72,6 +65,7 @@ The repository is organized as follows:
 │   └── Results/
 │       ├── BestResultsTable.py
 │       ├── Metrics.py
+│       ├── PlotPaper.py
 │       ├── Plots.py
 │       ├── PlotsBestModels.py
 │       └── TableResults.py
@@ -143,7 +137,7 @@ The original **CICDDoS2019** dataset is not included in this repository due to i
 
 The processed CSV scenarios used in the experiments are included in the `data/` directory. Therefore, the main experiments can be reproduced without downloading the raw CICDDoS2019 files.
 
-The `Database.ipynb` notebook documents the preprocessing and scenario generation procedure from the original CICDDoS2019 files. This notebook is optional for artifact review and only runs if the raw dataset is manually downloaded and placed in the expected structure.
+The `Database.ipynb` notebook documents the preprocessing and scenario generation procedure from the original CICDDoS2019 files. This notebook is optional for reproducing the main experiments and only runs if the raw dataset is manually downloaded and placed in the expected structure.
 
 To regenerate the processed CSV scenarios from the original CICDDoS2019 dataset, place the raw files under:
 
@@ -197,7 +191,7 @@ git lfs pull
 
 The artifact does not execute network attacks and does not generate malicious traffic. The experiments operate only on CSV files containing preprocessed flow records and produce metrics, tables, plots, and PDF outputs.
 
-Recommended safety practices for reviewers:
+Recommended safety practices for users:
 
 1. Run the artifact in a local virtual environment.
 2. Do not execute notebooks with administrative privileges.
@@ -213,11 +207,11 @@ The artifact is intended only for offline experimental evaluation of DoS/DDoS de
 
 ## 1. Clone the Repository
 
-During the review process, this repository should be accessed through the anonymized link provided in the submitted paper.
+Clone the public project repository:
 
 ```bash
-git clone <anonymous-repository-url>
-cd <repository-folder>
+git clone https://github.com/iRocktys/artifact-data-stream-review.git
+cd artifact-data-stream-review
 ```
 
 ## 2. Download Git LFS Files
@@ -324,7 +318,7 @@ Recommended execution order:
 3. `Classification.ipynb`: execute supervised classification experiments.
 4. `Database.ipynb`: optional notebook for regenerating scenarios from the original CICDDoS2019 dataset.
 
-The raw CICDDoS2019 dataset is not required for reproducing the main results from the processed CSV files. It is only required if reviewers want to regenerate the processed scenarios from scratch.
+The raw CICDDoS2019 dataset is not required for reproducing the main results from the processed CSV files. It is only required if users want to regenerate the processed scenarios from scratch.
 
 ## Claim #1: Supervised classifiers achieve the highest overall performance in most scenarios
 
@@ -444,6 +438,28 @@ Results.ipynb
 
 No additional configuration file needs to be changed for this reproduction path. Existing outputs in `output/` are sufficient to inspect the claim.
 
+### Generate the Paper Figure
+
+The consolidated 2-by-4 figure used in the paper can be generated from a Jupyter notebook cell:
+
+```python
+from src.Results.PlotPaper import PlotPaper
+
+result = PlotPaper(
+    projectRoot=".",
+    showFigure=True,
+).generate()
+```
+
+The figure is saved in both PDF and PNG formats:
+
+```text
+output/Results/plots_paper/BestModels_FP_FN_AllScenarios_2x4.pdf
+output/Results/plots_paper/BestModels_FP_FN_AllScenarios_2x4.png
+```
+
+If the notebook is located in a subdirectory, set `projectRoot` to the project root, for example `projectRoot=".."`.
+
 ### Expected Output
 
 The notebook should reproduce plots and tables showing differences in model behavior across:
@@ -507,6 +523,4 @@ The notebook should generate processed CSV scenarios in `data/`.
 
 # LICENSE
 
-No explicit open-source license is included in this anonymous review version of the artifact. The repository is provided for artifact evaluation and peer review purposes.
-
-The final public version may include a formal license after the review process, according to the authors' publication and distribution decisions.
+No explicit open-source license is currently included in this repository. The artifact is publicly available for inspection and reproduction of the experiments; reuse, modification, or redistribution remains subject to permission from the authors until a formal license is added.
