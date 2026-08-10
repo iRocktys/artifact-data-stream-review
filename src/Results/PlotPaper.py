@@ -344,20 +344,19 @@ class PlotPaper:
             self.maxInstance * 1.015,
         )
 
-        self.yUpperLimit = self.calculateGlobalYLimit()
+        self.yUpperLimit = 37
+
         yLowerMargin = max(
             2.5,
             self.yUpperLimit * 0.10,
         )
+
         self.plotYLimits = (
             -yLowerMargin,
             self.yUpperLimit,
         )
-        self.yTicks = np.linspace(
-            0,
-            self.yUpperLimit,
-            5,
-        )
+
+        self.yTicks = np.arange(0, 36, 5)
         self.xTicks = list(
             np.arange(
                 0,
