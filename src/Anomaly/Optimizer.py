@@ -67,14 +67,14 @@ class AnomalyOptunaOptimizer:
     def _combined_strategy_name(self, threshold_strategy):
         return os.path.join(str(threshold_strategy), self.decision_config["name"])
 
-    def _causal_moving_average(self, values, window):
+    def _moving_average(self, values, window):
         if not values:
             return 0.0
         window = max(1, int(window))
         recent = values[-window:]
         return float(np.mean(recent))
 
-    def _build_causal_moving_average_series(self, values, window):
+    def _build_moving_average_series(self, values, window):
         values = list(values)
         if not values:
             return []
@@ -82,7 +82,7 @@ class AnomalyOptunaOptimizer:
 
     def _compute_z_threshold(self, warmup_scores, z_value):
         if self.decision_config["type"] == "moving_average":
-            reference_scores = self._build_causal_moving_average_series(warmup_scores, self.decision_config["window"])
+            reference_scores = self._build_moving_average_series(warmup_scores, self.decision_config["window"])
         else:
             reference_scores = list(warmup_scores)
 
@@ -98,7 +98,7 @@ class AnomalyOptunaOptimizer:
         decision_type = self.decision_config["type"]
 
         if decision_type == "moving_average":
-            decision_score = self._causal_moving_average(score_history, self.decision_config["window"])
+            decision_score = self._moving_average(score_history, self.decision_config["window"])
             return 1 if decision_score > threshold else 0
 
         if decision_type == "persistence":

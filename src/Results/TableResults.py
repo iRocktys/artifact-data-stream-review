@@ -177,7 +177,7 @@ class TableResults:
             Paragraph("Decision strategies shown in the table", section_style),
             Paragraph("<b>Fixed / Raw:</b> baseline decision rule. Each anomaly score is compared directly with the established threshold. In the table, this direct decision can appear as <b>raw</b>.", text_style),
             Spacer(1, 0.15 * cm),
-            Paragraph("<b>Moving average:</b> temporal decision rule based on causal smoothing of recent anomaly scores. In the table, these configurations can appear as <b>moving_average_w3</b> and <b>moving_average_w5</b>.", text_style),
+            Paragraph("<b>Moving average:</b> temporal decision rule based on smoothing of recent anomaly scores. In the table, these configurations can appear as <b>moving_average_w3</b> and <b>moving_average_w5</b>.", text_style),
             Spacer(1, 0.15 * cm),
             Paragraph("<b>Temporal persistence:</b> temporal decision rule in which the anomaly condition must occur repeatedly within a recent window. In the table, these configurations can appear as <b>persistence_2_of_3</b> and <b>persistence_3_of_5</b>.", text_style),
             Spacer(1, 0.35 * cm),

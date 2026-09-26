@@ -38,13 +38,13 @@ class AnomalyExperimentRunner:
     def _combined_strategy_name(self, threshold_strategy, decision_config):
         return os.path.join(str(threshold_strategy), decision_config["name"])
 
-    def _causal_moving_average(self, values, window):
+    def _moving_average(self, values, window):
         if not values:
             return 0.0
         recent = values[-max(1, int(window)):]
         return float(np.mean(recent))
 
-    def _build_causal_moving_average_series(self, values, window):
+    def _build_moving_average_series(self, values, window):
         values = list(values)
         if not values:
             return []
@@ -52,7 +52,7 @@ class AnomalyExperimentRunner:
 
     def _compute_z_threshold(self, warmup_scores, z_value, decision_config):
         if decision_config["type"] == "moving_average":
-            reference_scores = self._build_causal_moving_average_series(warmup_scores, decision_config["window"])
+            reference_scores = self._build_moving_average_series(warmup_scores, decision_config["window"])
         else:
             reference_scores = list(warmup_scores)
         if not reference_scores:
@@ -63,7 +63,7 @@ class AnomalyExperimentRunner:
 
     def _apply_decision_rule(self, score, threshold, score_history, peak_history, decision_config):
         if decision_config["type"] == "moving_average":
-            decision_score = self._causal_moving_average(score_history, decision_config["window"])
+            decision_score = self._moving_average(score_history, decision_config["window"])
             return 1 if decision_score > threshold else 0
         if decision_config["type"] == "persistence":
             is_peak = 1 if score > threshold else 0
