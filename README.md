@@ -2,13 +2,13 @@
 
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/) [![CapyMOA](https://img.shields.io/badge/Framework-CapyMOA-orange)](https://capymoa.org/) [![Optuna](https://img.shields.io/badge/Optimization-Optuna-green)](https://optuna.org/) [![Dataset](https://img.shields.io/badge/Dataset-CICDDoS2019-purple)](https://www.unb.ca/cic/datasets/ddos-2019.html) [![Git LFS](https://img.shields.io/badge/Large_Files-Git_LFS-informational)](https://git-lfs.com/)
 
-This repository contains the public artifact associated with the paper **"Denial-of-Service Attack Variants: Benchmarking Streaming Anomaly Detection and Classification Methods"**, submitted to the **2026 Brazilian Symposium on Computing Systems Engineering (SBESC 2026)**.
+This repository contains the public artifact associated with the paper **"Denial-of-Service Attack Variants: Benchmarking Streaming Anomaly Detection and Classification Methods"**, submitted to the **Latin-American Symposium on Dependable and Secure Computing (LADC 2026)**.
 
 The paper presents a benchmark of supervised classifiers and anomaly detection algorithms for **DoS/DDoS attack detection in data streams**. The experimental design uses dynamic scenarios derived from the CICDDoS2019 dataset to evaluate how different DoS/DDoS attack variants affect stream learning models over time. The benchmark compares supervised classifiers and anomaly detectors under four scenarios: **Consistency**, **Generalization**, **Adaptation**, and **Recurrence**.
 
 This artifact includes the source code, processed CSV scenarios, experimental outputs, and execution notebooks required to inspect and reproduce the main results reported in the paper. The raw CICDDoS2019 files are not redistributed due to their size and external distribution conditions, but the processed CSV scenarios used in the experiments are included in the `data/` directory.
 
-The repository is not anonymized and retains its public GitHub ownership and development history, as permitted for the SBESC 2026 submission.
+The repository is not anonymized and retains its public GitHub ownership and development history, as permitted for the LADC 2026 submission.
 
 ---
 
